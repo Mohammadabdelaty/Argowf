@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: webhook-email
+spec:
+  template:
+    serviceAccountName: argo-events-sa 
+  dependencies:
+    - name: test-sensor
+      eventSourceName: pod-watcher
+      eventName: pod-events
+      # filters:  
+      #   data:  
+      #     - path: status.phase  
+      #       type: string  
+      #       value:  
+      #         - "Running"  
+      #         - "Pending"  
+      #         - "Completed"  
+  triggers:  
+    - template:  
+        name: pod-status-email-trigger  
+        email:  
+          host: "smtp.offic365.com"  
+          port: 587  
+          username: "aic.notify@aic.gov.eg"  
+          smtpPassword:  
+            name: aic-secret  
+            key: password  
+          from: "aic.notify@aic.gov.eg"  
+          to:  
+            - "mohammed.abdelaty@aic.gov.eg"  
+          subject: "Pod {{.pod_name}} Status Changed to {{.pod_phase}}"  
+          body: |  
+            Pod Details:  
+            - Name: {{.pod_name}}  
+            - Namespace: {{.pod_namespace}}  
+            - Phase: {{.pod_phase}}  
+            - Timestamp: {{.timestamp}}  
+          parameters:  
+            - src:  
+                dependencyName: pod-sensor  
+                dataKey: body.metadata.name  
+              dest: pod_name  
+            - src:  
+                dependencyName: pod-sensor  
+                dataKey: body.metadata.namespace  
+              dest: pod_namespace  
+            - src:  
+                dependencyName: pod-sensor  
+                dataKey: body.status.phase  
+              dest: pod_phase

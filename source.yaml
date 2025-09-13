@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: pod-watcher
+  namespace: argo-events
+  # namespace: rd
+spec:
+  resource:  
+    pod-events:  
+      namespace: argo-events
+      group: ""  
+      version: v1  
+      resource: pods 
+      eventTypes:  
+        - ADD  
+        - UPDATE  
+        - DELETE  
+      filter:  
+        # expression: "data.status.phase != nil"
+        labels:  
+          - key: app
+            value: sleep-job-pod

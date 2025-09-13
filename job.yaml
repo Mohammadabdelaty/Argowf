@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sleep-job
+  namespace: argo-events
+  # labels:
+    # app: sleep-job
+spec:
+  # Specifies that the job should complete successfully once.
+  completions: 1
+  # Specifies that only one pod should run at a time for this job.
+  parallelism: 1
+  template:
+    metadata:
+      labels:
+        app: sleep-job-pod
+    spec:
+      # RestartPolicy must be OnFailure or Never for a Job.
+      restartPolicy: Never
+      containers:
+      - name: sleep-container
+        image: busybox:1.36 # Using a lightweight busybox image
+        command: ["/bin/sh", "-c"]
+        args: ["while true; do  sleep 30; done"]
+        # resources:
+        #   limits:
+        #     cpu: 500
+        #     nvidia.com/gpu: 1
+        #   requests:
+        #     cpu: 250
+        #     nvidia.com/gpu: 1
