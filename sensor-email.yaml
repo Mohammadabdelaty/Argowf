@@ -1,3 +1,5 @@
+## Still under testing
+
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
@@ -21,15 +23,15 @@ spec:
     - template:  
         name: pod-status-email-trigger  
         email:  
-          host: "smtp.offic365.com"  
+          host: "smtp.gmail.com"  
           port: 587  
-          username: "aic.notify@aic.gov.eg"  
+          username: "<your-email@gmail.com>"  
           smtpPassword:  
-            name: aic-secret  
-            key: password  
-          from: "aic.notify@aic.gov.eg"  
+            name: aic-secret 
+            key: password
+          from: ""  
           to:  
-            - "mohammed.abdelaty@aic.gov.eg"  
+            - ""  
           subject: "Pod {{.pod_name}} Status Changed to {{.pod_phase}}"  
           body: |  
             Pod Details:  

@@ -14,20 +14,19 @@ kubectl apply -f Argowf/sensor-rbac.yaml -n argo-events # sensor rbac namespaced
 kubectl apply -f Argowf/workflow-rbac.yaml -n argo-events # wf rbac namespaced
 kubectl apply -f Argowf/eventbus.yaml -n argo-events # Eventbus
 
-kubectl apply -f Argowf/event.yaml -n argo-events # Create webhook sa and argo-event roles for the wf
-kubectl apply -f Argowf/event-source.yaml -n argo-events # Eventbus
-kubectl apply -f Argowf/sensor.yaml -n argo-events # take from webhook and trigger the wf
-
+kubectl apply -f event-source.yaml -n argo-events # Eventbus
+kubectl apply -f sensor-teams.yaml -n argo-events # take from webhook and trigger the wf
+kubectl apply -f event-job.yaml -n argo-events # Create webhook sa and argo-event roles for the wf
 ```
 
+Create channel on teams > Manage > edit connectors > configur webhook > copy the link > Done
+Test your webhook link: webhook teams
 
-
-Webhook teams
-test using :
+```bash
 curl -H "Content-Type: application/json" \
      -d '{"text": "Hello from curl! This is a test message to Teams 🚀"}' \
      <WEBHOOK_URL>
-
+```
 
 
 
