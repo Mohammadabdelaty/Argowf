@@ -328,7 +328,7 @@ data:
           maxMsgs: 50000
           maxAge: 168h
           maxBytes: -1
-          replicas: 3
+          replicas: 1
           duplicates: 300s
           # 0: Limits, 1: Interest, 2: WorkQueue
           retention: 0

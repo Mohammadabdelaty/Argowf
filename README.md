@@ -7,7 +7,7 @@ argo events
 Do i need to install argo-event in all ns needs to have argowf in it?
 ```bash
 kubectl apply -f Argowf/argo-event-install.yaml 
-kubectl apply -f Argowf/argo-event-rbac.yaml
+#kubectl apply -f Argowf/argo-event-rbac.yaml
 
 # NS
 kubectl apply -f Argowf/sensor-rbac.yaml -n argo-events # sensor rbac namespaced

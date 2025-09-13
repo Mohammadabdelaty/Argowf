@@ -1,9 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
-  name: webhook
+  name: webhook-teams
 spec:
   template:
+    # serviceAccountName: argo-events-sa
     serviceAccountName: operate-workflow-sa
   dependencies:
     - name: test-Sensor
@@ -17,7 +18,7 @@ spec:
           payload:
             - src:
                 dependencyName: test-Sensor
-                dataKey: body.status.phase # Static value if dataKey is missing
+                dataKey: body # Static value if dataKey is missing
               dest: text
             # - src:  # Add a static fallback or additional field
             #     dependencyName: test-Sensor
@@ -26,4 +27,4 @@ spec:
           headers:  
             Content-Type: "application/json"
           method: "POST"
-          timeout: 3s
+          # timeout: 3s
