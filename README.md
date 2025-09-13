@@ -1,23 +1,27 @@
-Install argowf in argo ns
+# Pod status notification
+I've been asked to create Notfication for pod status with specific label in specific ns, so I did this:
+
+## Install argo in argo ns
 ```bash
 kubectl apply -f Argowf/argo-install.yaml -n argo
 ```
-argo events
 
-Do i need to install argo-event in all ns needs to have argowf in it?
+## argo events
+
 ```bash
-kubectl apply -f Argowf/argo-event-install.yaml 
+kubectl apply -f argo-event-install.yaml 
 #kubectl apply -f Argowf/argo-event-rbac.yaml
 
 # NS
-kubectl apply -f Argowf/sensor-rbac.yaml -n argo-events # sensor rbac namespaced
-kubectl apply -f Argowf/workflow-rbac.yaml -n argo-events # wf rbac namespaced
-kubectl apply -f Argowf/eventbus.yaml -n argo-events # Eventbus
+kubectl apply -f sensor-rbac.yaml -n argo-events # sensor rbac namespaced
+kubectl apply -f workflow-rbac.yaml -n argo-events # wf rbac namespaced
 
+kubectl apply -f eventbus.yaml -n argo-events # Eventbus
 kubectl apply -f event-source.yaml -n argo-events # Eventbus
 kubectl apply -f sensor-teams.yaml -n argo-events # take from webhook and trigger the wf
 kubectl apply -f event-job.yaml -n argo-events # Create webhook sa and argo-event roles for the wf
 ```
+In your teams App:
 
 Create channel on teams > Manage > edit connectors > configur webhook > copy the link > Done
 Test your webhook link: webhook teams
@@ -28,10 +32,8 @@ curl -H "Content-Type: application/json" \
      <WEBHOOK_URL>
 ```
 
-
-
-
-
+Then after deploying the job you should see the messages.
 
 ## References:
     https://argoproj.github.io/argo-events/quick_start/
+    https://github.com/argoproj
