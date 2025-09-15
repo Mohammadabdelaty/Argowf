@@ -3,7 +3,7 @@ I've been asked to create Notfication for pod status with specific label in spec
 
 ## Install argo in argo ns
 ```bash
-kubectl apply -f Argowf/argo-install.yaml -n argo
+kubectl apply -f argo-install.yaml -n argo
 ```
 
 ## argo events
