@@ -14,7 +14,7 @@ spec:
     - template:
         name: http-trigger
         http:
-          url: "https://aicgoveg.webhook.office.com/webhookb2/439176ce-9b86-490f-bb31-69550a39e224@f4343c2b-01ec-4cae-aded-5e9249898d12/IncomingWebhook/67d65ee20e994f7a9bdad27beea8fc65/605e58c3-eff4-46e2-9408-354e8741095d/V2NxDD-BlgANpF7pBtXwE_IzYk352qJdAqSjBF6ewJiKo1"  
+          url: "<Webhook-Url>"  
           payload:
             - src:
                 dependencyName: test-Sensor
